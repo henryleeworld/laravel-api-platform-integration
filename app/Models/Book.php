@@ -14,12 +14,13 @@ use Illuminate\Database\Eloquent\Model;
 #[QueryParameter(key: 'sort[:property]', filter: OrderFilter::class)]
 class Book extends Model
 {
+    /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'isbn',
@@ -32,7 +33,7 @@ class Book extends Model
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $hidden = [
         'created_at',
