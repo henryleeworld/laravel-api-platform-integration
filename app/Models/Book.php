@@ -6,38 +6,21 @@ use ApiPlatform\Laravel\Eloquent\Filter\OrderFilter;
 use ApiPlatform\Laravel\Eloquent\Filter\PartialSearchFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\QueryParameter;
+use Database\Factories\BookFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 #[ApiResource]
+#[Fillable(['isbn', 'title', 'description', 'author', 'publication_date'])]
+#[Hidden(['created_at'])]
 #[QueryParameter(key: 'title', filter: PartialSearchFilter::class, constraints: 'min:2')]
 #[QueryParameter(key: 'sort[:property]', filter: OrderFilter::class)]
 class Book extends Model
 {
-    /** @use HasFactory<\Database\Factories\BookFactory> */
+    /** @use HasFactory<BookFactory> */
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'isbn',
-        'title',
-        'description',
-        'author',
-        'publication_date',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'created_at',
-    ];
 
     /**
      * Get the attributes that should be cast.
